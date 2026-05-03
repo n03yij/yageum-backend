@@ -33,4 +33,17 @@ public class TransactionController {
     public ResponseEntity<Transaction> createTransaction(@RequestBody TransactionRequestDto dto) {
         return ResponseEntity.ok(transactionService.createTransaction(dto));
     }
+
+    // 거래내역 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<Transaction> updateTransaction(@PathVariable String id, @RequestBody TransactionRequestDto dto) {
+        return ResponseEntity.ok(transactionService.updateTransaction(id, dto));
+    }
+
+    // 거래내역 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTransaction(@PathVariable String id) {
+        transactionService.deleteTransaction(id);
+        return ResponseEntity.noContent().build();
+    }
 }

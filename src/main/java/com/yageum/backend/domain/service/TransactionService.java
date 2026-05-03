@@ -42,4 +42,28 @@ public class TransactionService {
 
         return transactionRepository.save(transaction);
     }
+
+    // 거래내역 수정
+    public Transaction updateTransaction(String id, TransactionRequestDto dto) {
+        Transaction transaction = transactionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("거래내역을 찾을 수 없습니다."));
+
+        transaction.setType(dto.getType());
+        transaction.setCategory(dto.getCategory());
+        transaction.setAmount(dto.getAmount());
+        transaction.setDate(dto.getDate());
+        transaction.setMerchant(dto.getMerchant());
+        transaction.setMemo(dto.getMemo());
+        transaction.setUpdatedAt(LocalDateTime.now());
+
+        return transactionRepository.save(transaction);
+    }
+
+    // 거래내역 삭제
+    public void deleteTransaction(String id) {
+        Transaction transaction = transactionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("거래내역을 찾을 수 없습니다."));
+
+        transactionRepository.delete(transaction);
+    }
 }
